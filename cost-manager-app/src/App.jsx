@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { createRoot } from "react-dom/client";
-import CostForm from "./CostForm";
-import Report from "./Report";
-import PieChartComp from "./PieChart";
+import CostForm from "./components/CostForm";
+import Report from "./components/Report";
+import PieChartComp from "./components/PieChart";
 
 function App() {
   const [view, setView] = useState("add");

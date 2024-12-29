@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { addCost } from "./db";
+import { addCost } from "../db/db";
 
 /**
  * CostForm Component - Form to add a new cost item.

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { getCostsByMonthYear } from "./db";
+import { getCostsByMonthYear } from "../db/db";
 
 /**
  * Report Component - Displays costs for a given month/year.
