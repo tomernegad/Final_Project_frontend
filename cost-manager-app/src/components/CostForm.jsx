@@ -55,7 +55,7 @@ function CostForm() {
         />
       </div>
       <div>
-        <label>Date (yyyy-mm-dd):</label>
+        <label>Date (dd/mm/yyyy):</label>
         <input
           type="date"
           value={date}
