@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react";
 import CostForm from "./components/CostForm";
 import Report from "./components/Report";
-import PieChartComp from "./components/PieChart";
 import "./App.css";
 
 function App() {
@@ -19,7 +18,6 @@ function App() {
             {/* Buttons to switch between different views */}
             <button onClick={() => setView("add")}>Add Cost</button>
             <button onClick={() => setView("report")}>Monthly Report</button>
-            <button onClick={() => setView("pie")}>Pie Chart</button>
             {/* Button to toggle between light and dark mode */}
             <button
                 onClick={() => {
@@ -32,7 +30,6 @@ function App() {
             {/* Conditional rendering based on the 'view' state */}
             {view === "add" && <CostForm/>}
             {view === "report" && <Report/>}
-            {view === "pie" && <PieChartComp/>}
         </div>
     );
 }
