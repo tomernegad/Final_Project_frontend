@@ -42,7 +42,7 @@ function Report() {
                 labels,
                 datasets: [
                     {
-                        label: "Costs",
+                        label: 'Costs by Category for ' + month.padStart(2, '0') + '/' + year,
                         data: dataValues,
                         backgroundColor: [
                             "#FF6384",
