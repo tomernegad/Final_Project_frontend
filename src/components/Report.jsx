@@ -44,37 +44,42 @@ function Report() {
                 />
             </div>
             <button onClick={handleFetchCosts}>Get Report</button>
-            <div>
-                <h3>Costs:</h3>
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Category</th>
-                        <th>Description</th>
-                        <th>Sum</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {costs.map((cost) => (
-                        <tr key={cost.id}>
-                            <td>{cost.date}</td>
-                            <td>{cost.category}</td>
-                            <td>{cost.description}</td>
-                            <td>${cost.sum}</td>
+            {costs.length > 0 && (
+
+                <div>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th colSpan="4">Costs for {month.padStart(2, '0')}/{year}</th>
                         </tr>
-                    ))}
-                    </tbody>
-                    <tfoot>
-                    <tr>
-                        <td colSpan="3">Total:</td>
-                        <td>
-                            ${costs.reduce((acc, cost) => acc + parseFloat(cost.sum), 0)}
-                        </td>
-                    </tr>
-                    </tfoot>
-                </table>
-            </div>
+                        <tr>
+                            <th>Date</th>
+                            <th>Category</th>
+                            <th>Description</th>
+                            <th>Sum</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {costs.map((cost) => (
+                            <tr key={cost.id}>
+                                <td>{cost.date}</td>
+                                <td>{cost.category}</td>
+                                <td>{cost.description}</td>
+                                <td>${cost.sum}</td>
+                            </tr>
+                        ))}
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colSpan="3">Total:</td>
+                            <td>
+                                ${costs.reduce((acc, cost) => acc + parseFloat(cost.sum), 0)}
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            )}
         </div>
     );
 }
