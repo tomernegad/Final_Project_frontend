@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import CostForm from './components/CostForm';
-import Report from './components/Report';
+import CostForm from './components/cost-form';
+import Report from './components/report';
 import './App.css';
 
 function App() {
