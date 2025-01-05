@@ -46,13 +46,26 @@ function Report() {
       <button onClick={handleFetchCosts}>Get Report</button>
       <div>
         <h3>Costs:</h3>
-        <ul>
+        <table>
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Sum</th>
+            </tr>
+            </thead>
+            <tbody>
           {costs.map((cost) => (
-            <li key={cost.id}>
-              {`${cost.date} - ${cost.category} - ${cost.description} - $${cost.sum}`}
-            </li>
+            <tr key={cost.id}>
+                <td>{cost.date}</td>
+                <td>{cost.category}</td>
+                <td>{cost.description}</td>
+                <td>{`$${cost.sum}`}</td>
+            </tr>
           ))}
-        </ul>
+            </tbody>
+        </table>
       </div>
     </div>
   );
