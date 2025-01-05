@@ -1,15 +1,15 @@
-import React, {useState} from "react";
-import {addCost} from "../db/db";
+import React, {useState} from 'react';
+import {addCost} from '../db/db';
 
 /**
  * CostForm Component - Form to add a new cost item.
  * @returns {JSX.Element}
  */
 function CostForm() {
-    const [sum, setSum] = useState("");
-    const [category, setCategory] = useState("");
-    const [description, setDescription] = useState("");
-    const [date, setDate] = useState("");
+    const [sum, setSum] = useState('');
+    const [category, setCategory] = useState('');
+    const [description, setDescription] = useState('');
+    const [date, setDate] = useState('');
 
     /**
      * Handles the form submission.
@@ -18,11 +18,11 @@ function CostForm() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         await addCost({sum, category, description, date});
-        setSum("");
-        setCategory("");
-        setDescription("");
-        setDate("");
-        alert("Cost added successfully!");
+        setSum('');
+        setCategory('');
+        setDescription('');
+        setDate('');
+        alert('Cost added successfully!');
     };
 
     return (
@@ -30,7 +30,7 @@ function CostForm() {
             <div>
                 <label>Sum:</label>
                 <input
-                    type="number"
+                    type='number'
                     value={sum}
                     onChange={(e) => setSum(e.target.value)}
                     required
@@ -39,7 +39,7 @@ function CostForm() {
             <div>
                 <label>Category:</label>
                 <input
-                    type="text"
+                    type='text'
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
                     required
@@ -48,7 +48,7 @@ function CostForm() {
             <div>
                 <label>Description:</label>
                 <input
-                    type="text"
+                    type='text'
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     required
@@ -57,13 +57,13 @@ function CostForm() {
             <div>
                 <label>Date (dd/mm/yyyy):</label>
                 <input
-                    type="date"
+                    type='date'
                     value={date}
                     onChange={(e) => setDate(e.target.value)}
                     required
                 />
             </div>
-            <button type="submit">Add Cost</button>
+            <button type='submit'>Add Cost</button>
         </form>
     );
 }

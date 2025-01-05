@@ -6,12 +6,12 @@
  */
 function openDB() {
     return new Promise((resolve, reject) => {
-        const request = indexedDB.open("costManagerDB", 1);
+        const request = indexedDB.open('costManagerDB', 1);
 
         request.onupgradeneeded = (event) => {
             const db = event.target.result;
-            if (!db.objectStoreNames.contains("costs")) {
-                db.createObjectStore("costs", {keyPath: "id", autoIncrement: true});
+            if (!db.objectStoreNames.contains('costs')) {
+                db.createObjectStore('costs', {keyPath: 'id', autoIncrement: true});
             }
         };
 
@@ -29,8 +29,8 @@ export function addCost(costData) {
     return new Promise(async (resolve, reject) => {
         try {
             const db = await openDB();
-            const tx = db.transaction("costs", "readwrite");
-            const store = tx.objectStore("costs");
+            const tx = db.transaction('costs', 'readwrite');
+            const store = tx.objectStore('costs');
             const request = store.add({
                 sum: costData.sum,
                 category: costData.category,
@@ -49,8 +49,8 @@ export function deleteCost(id) {
     return new Promise(async (resolve, reject) => {
         try {
             const db = await openDB();
-            const tx = db.transaction("costs", "readwrite");
-            const store = tx.objectStore("costs");
+            const tx = db.transaction('costs', 'readwrite');
+            const store = tx.objectStore('costs');
             const request = store.delete(id);
             request.onsuccess = () => resolve(request.result);
             request.onerror = () => reject(request.error);
@@ -70,8 +70,8 @@ export function getCostsByMonthYear(month, year) {
     return new Promise(async (resolve, reject) => {
         try {
             const db = await openDB();
-            const tx = db.transaction("costs", "readonly");
-            const store = tx.objectStore("costs");
+            const tx = db.transaction('costs', 'readonly');
+            const store = tx.objectStore('costs');
             const costs = [];
             store.openCursor().onsuccess = (event) => {
                 const cursor = event.target.result;

@@ -1,15 +1,15 @@
-import React, {useState} from "react";
-import {getCostsByMonthYear} from "../db/db";
-import {Pie} from "react-chartjs-2";
-import {Chart as ChartJS} from "chart.js/auto";
+import React, {useState} from 'react';
+import {getCostsByMonthYear} from '../db/db';
+import {Pie} from 'react-chartjs-2';
+import {Chart as ChartJS} from 'chart.js/auto';
 
 /**
  * Report Component - Displays costs for a given month/year.
  * @returns {JSX.Element}
  */
 function Report() {
-    const [month, setMonth] = useState("");
-    const [year, setYear] = useState("");
+    const [month, setMonth] = useState('');
+    const [year, setYear] = useState('');
     const [costs, setCosts] = useState([]);
     const [chartData, setChartData] = useState(null);
 
@@ -45,13 +45,13 @@ function Report() {
                         label: 'Costs by Category for ' + month.padStart(2, '0') + '/' + year,
                         data: dataValues,
                         backgroundColor: [
-                            "#FF6384",
-                            "#36A2EB",
-                            "#FFCE56",
-                            "#8B008B",
-                            "#00FF00",
-                            "#FF00FF",
-                            "#D2691E",
+                            '#FF6384',
+                            '#36A2EB',
+                            '#FFCE56',
+                            '#8B008B',
+                            '#00FF00',
+                            '#FF00FF',
+                            '#D2691E',
                         ],
                     },
                 ],
@@ -64,19 +64,19 @@ function Report() {
             <div>
                 <label>Month:</label>
                 <input
-                    type="number"
+                    type='number'
                     value={month}
                     onChange={(e) => setMonth(e.target.value)}
-                    placeholder="1-12"
+                    placeholder='1-12'
                 />
             </div>
             <div>
                 <label>Year:</label>
                 <input
-                    type="number"
+                    type='number'
                     value={year}
                     onChange={(e) => setYear(e.target.value)}
-                    placeholder="e.g. 2023"
+                    placeholder='e.g. 2023'
                 />
             </div>
             <button onClick={handleFetchCosts}>Get Report</button>
@@ -86,7 +86,7 @@ function Report() {
                     <table>
                         <thead>
                         <tr>
-                            <th colSpan="4">Costs for {month.padStart(2, '0')}/{year}</th>
+                            <th colSpan='4'>Costs for {month.padStart(2, '0')}/{year}</th>
                         </tr>
                         <tr>
                             <th>Date</th>
@@ -107,14 +107,14 @@ function Report() {
                         </tbody>
                         <tfoot>
                         <tr>
-                            <td colSpan="3">Total:</td>
+                            <td colSpan='3'>Total:</td>
                             <td>
                                 ${costs.reduce((acc, cost) => acc + parseFloat(cost.sum), 0)}
                             </td>
                         </tr>
                         </tfoot>
                     </table>
-                    {chartData && <Pie data={chartData} options={{plugins: {legend: {position: "bottom"}}}}/>}
+                    {chartData && <Pie data={chartData} options={{plugins: {legend: {position: 'bottom'}}}}/>}
                 </div>
             )}
         </div>
