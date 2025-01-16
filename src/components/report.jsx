@@ -8,17 +8,21 @@ import {Chart as ChartJS} from 'chart.js/auto';
  * @returns {JSX.Element}
  */
 function Report() {
-    const [month, setMonth] = useState('');
-    const [year, setYear] = useState('');
+    const [monthYear, setMonthYear] = useState('');
     const [costs, setCosts] = useState([]);
     const [chartData, setChartData] = useState(null);
+    const [month, setMonth] = useState('');
+    const [year, setYear] = useState('');
 
 
     /**
      * Fetches individual costs and sums them by category when the button is clicked.
      */
     const handleFetchCosts = async () => {
-        if (month && year) {
+        if (monthYear) {
+            const [year, month] = monthYear.split('-');
+            setMonth(month);
+            setYear(year);
             const fetchedCosts = await getCostsByMonthYear(
                 parseInt(month),
                 parseInt(year)
@@ -64,19 +68,10 @@ function Report() {
             <div>
                 <label>Month:</label>
                 <input
-                    type='number'
-                    value={month}
-                    onChange={(e) => setMonth(e.target.value)}
-                    placeholder='1-12'
-                />
-            </div>
-            <div>
-                <label>Year:</label>
-                <input
-                    type='number'
-                    value={year}
-                    onChange={(e) => setYear(e.target.value)}
-                    placeholder='e.g. 2023'
+                    type='month'
+                    value={monthYear}
+                    onChange={(e) => setMonthYear(e.target.value)}
+                    placeholder='2024-01'
                 />
             </div>
             <button onClick={handleFetchCosts}>Get Report</button>
