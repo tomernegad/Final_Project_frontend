@@ -88,15 +88,14 @@ function Report() {
                     variant="contained"
                     color="primary"
                     onClick={handleFetchCosts}
-                    sx={{mt: 2}}
                 >
                     Get Report
                 </Button>
             </Box>
 
             {costs.length > 0 && (
-                <Box>
-                    <TableContainer component={Paper}>
+                <Box sx={{display: "flex", gap: 4}}>
+                    <TableContainer component={Paper} sx={{flex: 1}}>
                         <Table>
                             <TableHead>
                                 <TableRow>
@@ -132,7 +131,7 @@ function Report() {
                         </Table>
                     </TableContainer>
                     {chartData && (
-                        <Box sx={{mt: 4}}>
+                        <Box sx={{flex: 1}}>
                             <Pie data={chartData} options={{plugins: {legend: {position: "bottom"}}}}/>
                         </Box>
                     )}
