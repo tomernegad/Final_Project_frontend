@@ -12,8 +12,7 @@ import {
     IconButton,
 } from '@mui/material';
 import {Brightness4, Brightness7} from '@mui/icons-material';
-import {createTheme} from '@mui/material/styles';
-
+import theme from './theme';
 
 function App() {
     const [view, setView] = useState('add');
@@ -23,18 +22,6 @@ function App() {
         document.body.className =
             themeMode === 'light' ? 'light-mode' : 'dark-mode';
     }, [themeMode]);
-
-    const theme = createTheme({
-        palette: {
-            mode: themeMode, // or 'dark' for dark mode
-            primary: {
-                main: '#1976d2',
-            },
-            secondary: {
-                main: '#dc004e',
-            },
-        },
-    });
 
     return (
         <ThemeProvider theme={theme}>
