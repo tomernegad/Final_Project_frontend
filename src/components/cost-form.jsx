@@ -24,7 +24,7 @@ function CostForm() {
         setCategory('');
         setDescription('');
         setDate('');
-        alert('Cost added successfully!');
+        setOpenAlert(true);
     };
 
     return (
