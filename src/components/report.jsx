@@ -23,6 +23,7 @@ function Report() {
     const [chartData, setChartData] = useState(null);
     const [month, setMonth] = useState('');
     const [year, setYear] = useState('');
+    const [reportFetched, setReportFetched] = useState(false);
 
     const handleFetchCosts = async () => {
         if (monthYear) {
@@ -34,6 +35,7 @@ function Report() {
                 parseInt(year)
             );
             setCosts(fetchedCosts);
+            setReportFetched(true);
 
             const categoryTotals = {};
             fetchedCosts.forEach((cost) => {
@@ -70,29 +72,37 @@ function Report() {
 
     return (
         <Paper elevation={3} sx={{p: 4, borderRadius: 2}}>
-            <Typography variant='h5' gutterBottom align='center' sx={{mb: 4}}>
+            <Typography variant="h5" gutterBottom align="center" sx={{mb: 4}}>
                 Monthly Report
             </Typography>
 
             <Box sx={{mb: 4, display: 'flex', gap: 2}}>
                 <TextField
-                    label='Month'
-                    type='month'
+                    label="Month"
+                    type="month"
                     value={monthYear}
                     onChange={(e) => setMonthYear(e.target.value)}
-                    variant='outlined'
+                    variant="outlined"
                     placeholder={'YYYY-MM'}
                     fullWidth
-                    slotProps={{inputLabel: {shrink: true}}}
+                    slotProps={{inputLabel: {shrink: true}}}  // fix for MUI bug
                 />
                 <Button
-                    variant='contained'
-                    color='primary'
+                    variant="contained"
+                    color="primary"
                     onClick={handleFetchCosts}
                 >
                     Get Report
                 </Button>
             </Box>
+
+            {reportFetched && costs.length === 0 && (
+                <Typography variant="h6" align="center" color="red">
+                    No costs found for {month.padStart(2, '0')}/{year}
+                </Typography>
+            )}
+
+
 
             {costs.length > 0 && (
                 <Box sx={{display: 'flex', gap: 4}}>
@@ -100,7 +110,7 @@ function Report() {
                         <Table>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell colSpan={4} align='center'>
+                                    <TableCell colSpan={4} align="center">
                                         Costs for {month.padStart(2, '0')}/{year}
                                     </TableCell>
                                 </TableRow>
