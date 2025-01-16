@@ -113,7 +113,7 @@ function Report() {
                             <TableBody>
                                 {costs.map((cost) => (
                                     <TableRow key={cost.id}>
-                                        <TableCell>{cost.date}</TableCell>
+                                        <TableCell sx={{whiteSpace: "nowrap"}}>{cost.date}</TableCell>
                                         <TableCell>{cost.category}</TableCell>
                                         <TableCell>{cost.description}</TableCell>
                                         <TableCell>${cost.sum}</TableCell>
