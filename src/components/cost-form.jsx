@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { addCost } from "../db/db";
+import { addCost } from "../db/idb";
 import {
   TextField,
   Button,

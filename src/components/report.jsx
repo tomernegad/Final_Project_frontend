@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {getCostsByMonthYear} from '../db/db';
+import {getCostsByMonthYear} from '../db/idb';
 import {Pie} from 'react-chartjs-2';
 import {Chart as ChartJS} from 'chart.js/auto';
 
