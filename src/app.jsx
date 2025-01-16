@@ -12,7 +12,7 @@ import {
     IconButton,
 } from '@mui/material';
 import {Brightness4, Brightness7} from '@mui/icons-material';
-import theme from './theme';
+import {lightTheme, darkTheme} from './theme';
 
 function App() {
     const [view, setView] = useState('add');
@@ -24,9 +24,9 @@ function App() {
     }, [themeMode]);
 
     return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={themeMode === 'light' ? lightTheme : darkTheme}>
             <CssBaseline/>
-            <Container maxWidth='md'>
+            <Container maxWidth="md">
                 <Box
                     sx={{
                         display: 'flex',
@@ -35,21 +35,21 @@ function App() {
                         mt: 4,
                     }}
                 >
-                    <Typography variant='h3' component='h1' gutterBottom>
+                    <Typography variant="h3" component="h1" gutterBottom>
                         Cost Manager
                     </Typography>
 
                     <Box sx={{mb: 4, display: 'flex', gap: 2}}>
                         <Button
-                            variant='contained'
-                            color='primary'
+                            variant="contained"
+                            color="primary"
                             onClick={() => setView('add')}
                         >
                             Add Cost
                         </Button>
                         <Button
-                            variant='contained'
-                            color='secondary'
+                            variant="contained"
+                            color="secondary"
                             onClick={() => setView('report')}
                         >
                             Monthly Report
@@ -58,7 +58,7 @@ function App() {
                             onClick={() =>
                                 setThemeMode((prev) => (prev === 'light' ? 'dark' : 'light'))
                             }
-                            color='inherit'
+                            color="inherit"
                         >
                             {themeMode === 'light' ? <Brightness4/> : <Brightness7/>}
                         </IconButton>
