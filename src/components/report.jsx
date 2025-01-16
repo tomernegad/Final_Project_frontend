@@ -83,6 +83,7 @@ function Report() {
                     variant='outlined'
                     placeholder={'YYYY-MM'}
                     fullWidth
+                    slotProps={{inputLabel: {shrink: true}}}
                 />
                 <Button
                     variant='contained'
