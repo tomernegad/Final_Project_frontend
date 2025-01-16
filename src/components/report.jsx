@@ -1,7 +1,7 @@
-import React, {useState} from "react";
-import {getCostsByMonthYear} from "../db/idb";
-import {Pie} from "react-chartjs-2";
-import {Chart as ChartJS} from "chart.js/auto";
+import React, {useState} from 'react';
+import {getCostsByMonthYear} from '../db/idb';
+import {Pie} from 'react-chartjs-2';
+import {Chart as ChartJS} from 'chart.js/auto';
 import {
     TextField,
     Button,
@@ -15,18 +15,18 @@ import {
     TableHead,
     TableRow,
     TableFooter,
-} from "@mui/material";
+} from '@mui/material';
 
 function Report() {
-    const [monthYear, setMonthYear] = useState("");
+    const [monthYear, setMonthYear] = useState('');
     const [costs, setCosts] = useState([]);
     const [chartData, setChartData] = useState(null);
-    const [month, setMonth] = useState("");
-    const [year, setYear] = useState("");
+    const [month, setMonth] = useState('');
+    const [year, setYear] = useState('');
 
     const handleFetchCosts = async () => {
         if (monthYear) {
-            const [year, month] = monthYear.split("-");
+            const [year, month] = monthYear.split('-');
             setMonth(month);
             setYear(year);
             const fetchedCosts = await getCostsByMonthYear(
@@ -51,16 +51,16 @@ function Report() {
                 labels,
                 datasets: [
                     {
-                        label: "Costs by Category for " + month.padStart(2, "0") + "/" + year,
+                        label: 'Costs by Category for ' + month.padStart(2, '0') + '/' + year,
                         data: dataValues,
                         backgroundColor: [
-                            "#FF6384",
-                            "#36A2EB",
-                            "#FFCE56",
-                            "#8B008B",
-                            "#00FF00",
-                            "#FF00FF",
-                            "#D2691E",
+                            '#FF6384',
+                            '#36A2EB',
+                            '#FFCE56',
+                            '#8B008B',
+                            '#00FF00',
+                            '#FF00FF',
+                            '#D2691E',
                         ],
                     },
                 ],
@@ -70,23 +70,23 @@ function Report() {
 
     return (
         <Paper elevation={3} sx={{p: 4, borderRadius: 2}}>
-            <Typography variant="h5" gutterBottom align="center" sx={{mb: 4}}>
+            <Typography variant='h5' gutterBottom align='center' sx={{mb: 4}}>
                 Monthly Report
             </Typography>
 
-            <Box sx={{mb: 4, display: "flex", gap: 2}}>
+            <Box sx={{mb: 4, display: 'flex', gap: 2}}>
                 <TextField
-                    label="Month"
-                    type="month"
+                    label='Month'
+                    type='month'
                     value={monthYear}
                     onChange={(e) => setMonthYear(e.target.value)}
-                    variant="outlined"
-                    placeholder={"YYYY-MM"}
+                    variant='outlined'
+                    placeholder={'YYYY-MM'}
                     fullWidth
                 />
                 <Button
-                    variant="contained"
-                    color="primary"
+                    variant='contained'
+                    color='primary'
                     onClick={handleFetchCosts}
                 >
                     Get Report
@@ -94,13 +94,13 @@ function Report() {
             </Box>
 
             {costs.length > 0 && (
-                <Box sx={{display: "flex", gap: 4}}>
+                <Box sx={{display: 'flex', gap: 4}}>
                     <TableContainer component={Paper} sx={{flex: 1}}>
                         <Table>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell colSpan={4} align="center">
-                                        Costs for {month.padStart(2, "0")}/{year}
+                                    <TableCell colSpan={4} align='center'>
+                                        Costs for {month.padStart(2, '0')}/{year}
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
@@ -113,7 +113,7 @@ function Report() {
                             <TableBody>
                                 {costs.map((cost) => (
                                     <TableRow key={cost.id}>
-                                        <TableCell sx={{whiteSpace: "nowrap"}}>{cost.date}</TableCell>
+                                        <TableCell sx={{whiteSpace: 'nowrap'}}>{cost.date}</TableCell>
                                         <TableCell>{cost.category}</TableCell>
                                         <TableCell>{cost.description}</TableCell>
                                         <TableCell>${cost.sum}</TableCell>
@@ -132,7 +132,7 @@ function Report() {
                     </TableContainer>
                     {chartData && (
                         <Box sx={{flex: 1}}>
-                            <Pie data={chartData} options={{plugins: {legend: {position: "bottom"}}}}/>
+                            <Pie data={chartData} options={{plugins: {legend: {position: 'bottom'}}}}/>
                         </Box>
                     )}
                 </Box>
