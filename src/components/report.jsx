@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { getCostsByMonthYear } from '../db/idb';
-import { Pie } from 'react-chartjs-2';
-import { Chart as ChartJS } from 'chart.js/auto';
+import React, {useState} from 'react';
+import {getCostsByMonthYear} from '../db/idb';
+import {Pie} from 'react-chartjs-2';
+import {categories} from '../db/cat';
+import {Chart as ChartJS} from 'chart.js/auto';
 import {
     TextField,
     Button,
@@ -14,59 +15,61 @@ import {
     TableContainer,
     TableHead,
     TableRow,
-    TableFooter,
+    TableFooter
 } from '@mui/material';
 
-/**
- * Report component that fetches and displays monthly cost data.
- * It includes a form to input the month and year, a table to display the costs,
- * and a pie chart to visualize the costs by category.
- */
 function Report() {
-    // State variables for form inputs, fetched data, and chart data
-    const [monthYear, setMonthYear] = useState('');
-    const [costs, setCosts] = useState([]);
-    const [chartData, setChartData] = useState(null);
-    const [month, setMonth] = useState('');
-    const [year, setYear] = useState('');
-    const [reportFetched, setReportFetched] = useState(false);
 
-    /**
-     * Fetch costs for the specified month and year, and update the state.
-     * Also, prepare data for the pie chart.
-     */
+    const initReport = {};
+    categories.forEach((category) => {
+        initReport[category] = {
+            count: 0,
+            total: 0,
+            instances: [],
+        };
+    });
+
+    const [monthYear, setMonthYear] = useState('');
+    const [categoryReport, setCategoryReport] = useState(initReport);
+    const [chartData, setChartData] = useState(null);
+    const [totalCount, setTotalCount] = useState(0);
+    const [totalSum, setTotalSum] = useState(0.0);
+
     const handleFetchCosts = async () => {
         if (monthYear) {
             const [year, month] = monthYear.split('-');
-            setMonth(month);
-            setYear(year);
             const fetchedCosts = await getCostsByMonthYear(
                 parseInt(month),
                 parseInt(year)
             );
-            setCosts(fetchedCosts);
-            setReportFetched(true);
 
-            // Calculate total costs per category
-            const categoryTotals = {};
+            const report = {...initReport};
+            let count = 0;
+            let sum = 0.0;
+
+
             fetchedCosts.forEach((cost) => {
-                const cat = cost.category;
-                if (!categoryTotals[cat]) {
-                    categoryTotals[cat] = 0;
+                if (categories.includes(cost.category)) {
+                    const rep = report[cost.category]
+                    rep['count']++;
+                    rep['total'] += parseFloat(cost.sum);
+                    rep['instances'].push(cost);
+                    count++;
+                    sum += parseFloat(cost.sum);
                 }
-                categoryTotals[cat] += parseFloat(cost.sum);
             });
 
-            // Prepare data for the pie chart
-            const labels = Object.keys(categoryTotals);
-            const dataValues = Object.values(categoryTotals);
+            setCategoryReport(report);
+            setTotalCount(count);
+            setTotalSum(sum);
+
 
             setChartData({
-                labels,
+                labels: categories,
                 datasets: [
                     {
                         label: 'Costs by Category for ' + month.padStart(2, '0') + '/' + year,
-                        data: dataValues,
+                        data: categories.map((category) => report[category]['total']),
                         backgroundColor: [
                             '#FF6384',
                             '#36A2EB',
@@ -82,14 +85,14 @@ function Report() {
         }
     };
 
+
     return (
-        <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
-            <Typography variant="h5" gutterBottom align="center" sx={{ mb: 4 }}>
+        <Paper elevation={3} sx={{p: 4, borderRadius: 2}}>
+            <Typography variant="h5" gutterBottom align="center" sx={{mb: 4}}>
                 Monthly Report
             </Typography>
 
-            {/* Form to input month and year */}
-            <Box sx={{ mb: 4, display: 'flex', gap: 2 }}>
+            <Box sx={{mb: 4, display: 'flex', gap: 2}}>
                 <TextField
                     label="Month"
                     type="month"
@@ -98,7 +101,7 @@ function Report() {
                     variant="outlined"
                     placeholder={'YYYY-MM'}
                     fullWidth
-                    slotProps={{ inputLabel: { shrink: true } }}  // fix for MUI bug
+                    slotProps={{inputLabel: {shrink: true}}}
                 />
                 <Button
                     variant="contained"
@@ -109,58 +112,66 @@ function Report() {
                 </Button>
             </Box>
 
-            {/* Display message if no costs are found */}
-            {reportFetched && costs.length === 0 && (
-                <Typography variant="h6" align="center" color="red">
-                    No costs found for {month.padStart(2, '0')}/{year}
-                </Typography>
-            )}
+            <Box sx={{display: 'flex', gap: 4}}>
+                <TableContainer component={Paper} sx={{flex: 1}}>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Category</TableCell>
+                                <TableCell>Count</TableCell>
+                                <TableCell>Total</TableCell>
+                            </TableRow>
+                        </TableHead>
 
-            {/* Display table and pie chart if costs are found */}
-            {costs.length > 0 && (
-                <Box sx={{ display: 'flex', gap: 4 }}>
-                    <TableContainer component={Paper} sx={{ flex: 1 }}>
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell colSpan={4} align="center">
-                                        Costs for {month.padStart(2, '0')}/{year}
-                                    </TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>Date</TableCell>
-                                    <TableCell>Category</TableCell>
-                                    <TableCell>Description</TableCell>
-                                    <TableCell>Sum</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {costs.map((cost) => (
-                                    <TableRow key={cost.id}>
-                                        <TableCell sx={{ whiteSpace: 'nowrap' }}>{cost.date}</TableCell>
-                                        <TableCell>{cost.category}</TableCell>
-                                        <TableCell>{cost.description}</TableCell>
-                                        <TableCell>${cost.sum}</TableCell>
+                        <TableBody>
+                            {categories.map((category) => (
+                                <React.Fragment key={category}>
+                                    <TableRow key={category}>
+                                        <TableCell>{category}</TableCell>
+                                        <TableCell>{categoryReport[category]['count']}</TableCell>
+                                        <TableCell>{categoryReport[category]['total']}</TableCell>
                                     </TableRow>
-                                ))}
-                            </TableBody>
-                            <TableFooter>
-                                <TableRow>
-                                    <TableCell colSpan={3}>Total:</TableCell>
-                                    <TableCell>
-                                        ${costs.reduce((acc, cost) => acc + parseFloat(cost.sum), 0)}
-                                    </TableCell>
-                                </TableRow>
-                            </TableFooter>
-                        </Table>
-                    </TableContainer>
-                    {chartData && (
-                        <Box sx={{ flex: 1 }}>
-                            <Pie data={chartData} options={{ plugins: { legend: { position: 'bottom' } } }} />
-                        </Box>
-                    )}
-                </Box>
-            )}
+
+                                    {categoryReport[category]['instances'].length > 0 && <TableRow>
+                                        <TableCell colSpan={3}>
+                                            <Table size="small">
+                                                <TableHead>
+                                                    <TableRow>
+                                                        <TableCell>Description</TableCell>
+                                                        <TableCell>Sum</TableCell>
+                                                        <TableCell>Day</TableCell>
+                                                    </TableRow>
+                                                </TableHead>
+                                                <TableBody>
+                                                    {categoryReport[category]['instances'].map((cost) => (
+                                                        <TableRow key={cost.id}>
+                                                            <TableCell>{cost.description}</TableCell>
+                                                            <TableCell>{cost.sum}</TableCell>
+                                                            <TableCell>{cost.date.substring(cost.date.length - 2)}</TableCell>
+                                                        </TableRow>
+                                                    ))}
+                                                </TableBody>
+                                            </Table>
+                                        </TableCell>
+                                    </TableRow>}
+                                </React.Fragment>
+                            ))}
+                        </TableBody>
+                        <TableFooter>
+                            <TableRow>
+                                <TableCell>Total</TableCell>
+                                <TableCell>{totalCount}</TableCell>
+                                <TableCell>{totalSum}</TableCell>
+                            </TableRow>
+                        </TableFooter>
+                    </Table>
+                </TableContainer>
+                {chartData && (
+                    <Box sx={{flex: 1}}>
+                        <Pie data={chartData} options={{plugins: {legend: {position: 'bottom'}}}}/>
+                    </Box>
+                )}
+            </Box>
         </Paper>
     );
 }

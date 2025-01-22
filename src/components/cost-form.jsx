@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { addCost } from '../db/idb';
+import {categories} from '../db/cat';
 import {
     TextField,
     Button,
@@ -13,9 +14,6 @@ import {
     FormControl,
     InputLabel
 } from '@mui/material';
-
-// Predefined categories for the dropdown menu
-const categories = ['Food', 'Transport', 'Utilities', 'Entertainment', 'Other'];
 
 function CostForm() {
     // State variables for form inputs and alert
