@@ -68,7 +68,7 @@ function CostForm() {
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
                         required
-                    >
+                        variant="outlined">
                         {categories.map((category) => (
                             <MenuItem key={category} value={category}>
                                 {category}
