@@ -76,8 +76,6 @@ function Report() {
                             '#FFCE56',
                             '#8B008B',
                             '#00FF00',
-                            '#FF00FF',
-                            '#D2691E',
                         ],
                     },
                 ],
