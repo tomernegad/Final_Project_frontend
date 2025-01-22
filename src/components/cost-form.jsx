@@ -10,6 +10,11 @@ import {
     Alert,
 } from '@mui/material';
 
+/**
+ * CostForm component allows users to add a new cost entry.
+ * It includes fields for sum, category, description, and date.
+ * Upon submission, the data is saved and a success alert is shown.
+ */
 function CostForm() {
     const [sum, setSum] = useState('');
     const [category, setCategory] = useState('');
@@ -17,6 +22,13 @@ function CostForm() {
     const [date, setDate] = useState('');
     const [openAlert, setOpenAlert] = useState(false);
 
+    /**
+     * Handles form submission.
+     * Saves the cost data,
+     * resets the form fields, and shows a success alert.
+     *
+     * @param {Event} event - The form submission event
+     */
     const handleSubmit = async (event) => {
         event.preventDefault();
         await addCost({sum, category, description, date});
@@ -29,12 +41,12 @@ function CostForm() {
 
     return (
         <Paper elevation={3} sx={{p: 4, borderRadius: 2}}>
-            <Typography variant='h5' gutterBottom align='center' sx={{mb: 4}}>
+            <Typography variant="h5" gutterBottom align="center" sx={{mb: 4}}>
                 Add New Cost
             </Typography>
 
             <Box
-                component='form'
+                component="form"
                 onSubmit={handleSubmit}
                 sx={{
                     display: 'flex',
@@ -43,45 +55,45 @@ function CostForm() {
                 }}
             >
                 <TextField
-                    label='Sum'
-                    type='number'
+                    label="Sum"
+                    type="number"
                     value={sum}
                     onChange={(e) => setSum(e.target.value)}
                     required
-                    variant='outlined'
+                    variant="outlined"
                 />
 
                 <TextField
-                    label='Category'
+                    label="Category"
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
                     required
-                    variant='outlined'
+                    variant="outlined"
                 />
 
                 <TextField
-                    label='Description'
+                    label="Description"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     required
-                    variant='outlined'
+                    variant="outlined"
                     multiline
                     rows={2}
                 />
 
                 <TextField
-                    type='date'
+                    type="date"
                     value={date}
                     onChange={(e) => setDate(e.target.value)}
                     required
-                    variant='outlined'
+                    variant="outlined"
                 />
 
                 <Button
-                    type='submit'
-                    variant='contained'
-                    color='primary'
-                    size='large'
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    size="large"
                     sx={{mt: 2}}
                 >
                     Add Cost
@@ -93,7 +105,7 @@ function CostForm() {
                 autoHideDuration={6000}
                 onClose={() => setOpenAlert(false)}
             >
-                <Alert severity='success' sx={{width: '100%'}}>
+                <Alert severity="success" sx={{width: '100%'}}>
                     Cost added successfully!
                 </Alert>
             </Snackbar>
