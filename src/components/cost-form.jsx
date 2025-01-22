@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {addCost} from '../db/idb';
+import React, { useState } from 'react';
+import { addCost } from '../db/idb';
 import {
     TextField,
     Button,
@@ -8,13 +8,14 @@ import {
     Typography,
     Snackbar,
     Alert,
+    Select,
+    MenuItem,
+    FormControl,
+    InputLabel
 } from '@mui/material';
 
-/**
- * CostForm component allows users to add a new cost entry.
- * It includes fields for sum, category, description, and date.
- * Upon submission, the data is saved and a success alert is shown.
- */
+const categories = ['Food', 'Transport', 'Utilities', 'Entertainment', 'Other'];
+
 function CostForm() {
     const [sum, setSum] = useState('');
     const [category, setCategory] = useState('');
@@ -22,16 +23,9 @@ function CostForm() {
     const [date, setDate] = useState('');
     const [openAlert, setOpenAlert] = useState(false);
 
-    /**
-     * Handles form submission.
-     * Saves the cost data,
-     * resets the form fields, and shows a success alert.
-     *
-     * @param {Event} event - The form submission event
-     */
     const handleSubmit = async (event) => {
         event.preventDefault();
-        await addCost({sum, category, description, date});
+        await addCost({ sum, category, description, date });
         setSum('');
         setCategory('');
         setDescription('');
@@ -40,8 +34,8 @@ function CostForm() {
     };
 
     return (
-        <Paper elevation={3} sx={{p: 4, borderRadius: 2}}>
-            <Typography variant="h5" gutterBottom align="center" sx={{mb: 4}}>
+        <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
+            <Typography variant="h5" gutterBottom align="center" sx={{ mb: 4 }}>
                 Add New Cost
             </Typography>
 
@@ -63,13 +57,20 @@ function CostForm() {
                     variant="outlined"
                 />
 
-                <TextField
-                    label="Category"
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                    required
-                    variant="outlined"
-                />
+                <FormControl fullWidth>
+                    <InputLabel>Category</InputLabel>
+                    <Select
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
+                        required
+                    >
+                        {categories.map((category) => (
+                            <MenuItem key={category} value={category}>
+                                {category}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
 
                 <TextField
                     label="Description"
@@ -94,7 +95,7 @@ function CostForm() {
                     variant="contained"
                     color="primary"
                     size="large"
-                    sx={{mt: 2}}
+                    sx={{ mt: 2 }}
                 >
                     Add Cost
                 </Button>
@@ -105,7 +106,7 @@ function CostForm() {
                 autoHideDuration={6000}
                 onClose={() => setOpenAlert(false)}
             >
-                <Alert severity="success" sx={{width: '100%'}}>
+                <Alert severity="success" sx={{ width: '100%' }}>
                     Cost added successfully!
                 </Alert>
             </Snackbar>
