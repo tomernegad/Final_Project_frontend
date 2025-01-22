@@ -164,7 +164,7 @@ function Report() {
                         </TableFooter>
                     </Table>
                 </TableContainer>
-                {chartData && (
+                {totalCount > 0 && (
                     <Box sx={{flex: 1}}>
                         <Pie data={chartData} options={{plugins: {legend: {position: 'bottom'}}}}/>
                     </Box>
