@@ -68,7 +68,7 @@ function Report() {
                 labels: categories,
                 datasets: [
                     {
-                        label: 'Costs by Category for ' + month.padStart(2, '0') + '/' + year,
+                        label: 'Total costs for month',
                         data: categories.map((category) => report[category]['total']),
                         backgroundColor: [
                             '#FF6384',
