@@ -14,8 +14,16 @@ import {
 import {Brightness4, Brightness7} from '@mui/icons-material';
 import {lightTheme, darkTheme} from './theme';
 
+/**
+ * Main application component for the Cost Manager.
+ * Handles theme switching and view switching between adding costs and viewing reports.
+ *
+ * @component
+ */
 function App() {
+    // State to manage the current view ('add' or 'report')
     const [view, setView] = useState('add');
+    // State to manage the current theme mode ('light' or 'dark')
     const [themeMode, setThemeMode] = useState('dark');
 
     useEffect(() => {
