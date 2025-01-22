@@ -15,6 +15,13 @@ import {
     InputLabel
 } from '@mui/material';
 
+/**
+ * CostForm component allows users to add a new cost entry.
+ * It includes form fields for sum, category, description, and date.
+ * On form submission, the data is saved and a success alert is shown.
+ *
+ * @component
+ */
 function CostForm() {
     // State variables for form inputs and alert
     const [sum, setSum] = useState('');
