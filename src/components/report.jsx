@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
-import {getCostsByMonthYear} from '../db/idb';
-import {Pie} from 'react-chartjs-2';
-import {Chart as ChartJS} from 'chart.js/auto';
+import React, { useState } from 'react';
+import { getCostsByMonthYear } from '../db/idb';
+import { Pie } from 'react-chartjs-2';
+import { Chart as ChartJS } from 'chart.js/auto';
 import {
     TextField,
     Button,
@@ -23,6 +23,7 @@ import {
  * and a pie chart to visualize the costs by category.
  */
 function Report() {
+    // State variables for form inputs, fetched data, and chart data
     const [monthYear, setMonthYear] = useState('');
     const [costs, setCosts] = useState([]);
     const [chartData, setChartData] = useState(null);
@@ -31,9 +32,8 @@ function Report() {
     const [reportFetched, setReportFetched] = useState(false);
 
     /**
-     * Report component that fetches and displays monthly cost data.
-     * It includes a form to input the month and year, a table to display the costs,
-     * and a pie chart to visualize the costs by category.
+     * Fetch costs for the specified month and year, and update the state.
+     * Also, prepare data for the pie chart.
      */
     const handleFetchCosts = async () => {
         if (monthYear) {
@@ -47,6 +47,7 @@ function Report() {
             setCosts(fetchedCosts);
             setReportFetched(true);
 
+            // Calculate total costs per category
             const categoryTotals = {};
             fetchedCosts.forEach((cost) => {
                 const cat = cost.category;
@@ -56,6 +57,7 @@ function Report() {
                 categoryTotals[cat] += parseFloat(cost.sum);
             });
 
+            // Prepare data for the pie chart
             const labels = Object.keys(categoryTotals);
             const dataValues = Object.values(categoryTotals);
 
@@ -81,12 +83,13 @@ function Report() {
     };
 
     return (
-        <Paper elevation={3} sx={{p: 4, borderRadius: 2}}>
-            <Typography variant="h5" gutterBottom align="center" sx={{mb: 4}}>
+        <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
+            <Typography variant="h5" gutterBottom align="center" sx={{ mb: 4 }}>
                 Monthly Report
             </Typography>
 
-            <Box sx={{mb: 4, display: 'flex', gap: 2}}>
+            {/* Form to input month and year */}
+            <Box sx={{ mb: 4, display: 'flex', gap: 2 }}>
                 <TextField
                     label="Month"
                     type="month"
@@ -95,7 +98,7 @@ function Report() {
                     variant="outlined"
                     placeholder={'YYYY-MM'}
                     fullWidth
-                    slotProps={{inputLabel: {shrink: true}}}  // fix for MUI bug
+                    slotProps={{ inputLabel: { shrink: true } }}  // fix for MUI bug
                 />
                 <Button
                     variant="contained"
@@ -106,16 +109,17 @@ function Report() {
                 </Button>
             </Box>
 
+            {/* Display message if no costs are found */}
             {reportFetched && costs.length === 0 && (
                 <Typography variant="h6" align="center" color="red">
                     No costs found for {month.padStart(2, '0')}/{year}
                 </Typography>
             )}
 
-
+            {/* Display table and pie chart if costs are found */}
             {costs.length > 0 && (
-                <Box sx={{display: 'flex', gap: 4}}>
-                    <TableContainer component={Paper} sx={{flex: 1}}>
+                <Box sx={{ display: 'flex', gap: 4 }}>
+                    <TableContainer component={Paper} sx={{ flex: 1 }}>
                         <Table>
                             <TableHead>
                                 <TableRow>
@@ -133,7 +137,7 @@ function Report() {
                             <TableBody>
                                 {costs.map((cost) => (
                                     <TableRow key={cost.id}>
-                                        <TableCell sx={{whiteSpace: 'nowrap'}}>{cost.date}</TableCell>
+                                        <TableCell sx={{ whiteSpace: 'nowrap' }}>{cost.date}</TableCell>
                                         <TableCell>{cost.category}</TableCell>
                                         <TableCell>{cost.description}</TableCell>
                                         <TableCell>${cost.sum}</TableCell>
@@ -151,8 +155,8 @@ function Report() {
                         </Table>
                     </TableContainer>
                     {chartData && (
-                        <Box sx={{flex: 1}}>
-                            <Pie data={chartData} options={{plugins: {legend: {position: 'bottom'}}}}/>
+                        <Box sx={{ flex: 1 }}>
+                            <Pie data={chartData} options={{ plugins: { legend: { position: 'bottom' } } }} />
                         </Box>
                     )}
                 </Box>

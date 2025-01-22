@@ -14,23 +14,27 @@ import {
     InputLabel
 } from '@mui/material';
 
+// Predefined categories for the dropdown menu
 const categories = ['Food', 'Transport', 'Utilities', 'Entertainment', 'Other'];
 
 function CostForm() {
+    // State variables for form inputs and alert
     const [sum, setSum] = useState('');
     const [category, setCategory] = useState('');
     const [description, setDescription] = useState('');
     const [date, setDate] = useState('');
     const [openAlert, setOpenAlert] = useState(false);
 
+    // Handle form submission
     const handleSubmit = async (event) => {
         event.preventDefault();
         await addCost({ sum, category, description, date });
+        // Reset form fields
         setSum('');
         setCategory('');
         setDescription('');
         setDate('');
-        setOpenAlert(true);
+        setOpenAlert(true); // Show success alert
     };
 
     return (
@@ -48,6 +52,7 @@ function CostForm() {
                     gap: 3,
                 }}
             >
+                {/* Input field for sum */}
                 <TextField
                     label="Sum"
                     type="number"
@@ -57,9 +62,11 @@ function CostForm() {
                     variant="outlined"
                 />
 
+                {/* Dropdown menu for category selection */}
                 <FormControl fullWidth>
                     <InputLabel>Category</InputLabel>
                     <Select
+                        label='category'
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
                         required
@@ -72,6 +79,7 @@ function CostForm() {
                     </Select>
                 </FormControl>
 
+                {/* Input field for description */}
                 <TextField
                     label="Description"
                     value={description}
@@ -82,6 +90,7 @@ function CostForm() {
                     rows={2}
                 />
 
+                {/* Input field for date */}
                 <TextField
                     type="date"
                     value={date}
@@ -90,6 +99,7 @@ function CostForm() {
                     variant="outlined"
                 />
 
+                {/* Submit button */}
                 <Button
                     type="submit"
                     variant="contained"
@@ -101,6 +111,7 @@ function CostForm() {
                 </Button>
             </Box>
 
+            {/* Success alert */}
             <Snackbar
                 open={openAlert}
                 autoHideDuration={6000}
