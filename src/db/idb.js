@@ -50,35 +50,6 @@ export function addCost(costData) {
 }
 
 /**
- * Retrieves all unique categories from the 'costs' store.
- * @returns {Promise<Array<string>>} A promise that resolves to an array of unique categories.
- */
-export function getCategories() {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const db = await openDB();
-            const tx = db.transaction('costs', 'readonly');
-            const store = tx.objectStore('costs');
-            const categories = [];
-            store.openCursor().onsuccess = (event) => {
-                const cursor = event.target.result;
-                if (cursor) {
-                    const category = cursor.value.category;
-                    if (!categories.includes(category)) {
-                        categories.push(category);
-                    }
-                    cursor.continue();
-                } else {
-                    resolve(categories);
-                }
-            };
-        } catch (error) {
-            reject(error);
-        }
-    });
-}
-
-/**
  * Deletes a cost item from the 'costs' store by ID.
  * @param {number} id - The ID of the cost item to be deleted.
  * @returns {Promise<void>} A promise that resolves when the cost item is deleted.
