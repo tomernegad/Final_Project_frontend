@@ -1,5 +1,10 @@
 import {createTheme} from '@mui/material/styles';
 
+/**
+ * Light theme configuration for the application.
+ *
+ * @type {import('@mui/material/styles').Theme}
+ */
 const lightTheme = createTheme({
     palette: {
         mode: 'light',
@@ -12,6 +17,11 @@ const lightTheme = createTheme({
     },
 });
 
+/**
+ * Dark theme configuration for the application.
+ *
+ * @type {import('@mui/material/styles').Theme}
+ */
 const darkTheme = createTheme({
     palette: {
         mode: 'dark',
