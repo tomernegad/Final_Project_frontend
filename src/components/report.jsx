@@ -17,6 +17,11 @@ import {
     TableFooter,
 } from '@mui/material';
 
+/**
+ * Report component that fetches and displays monthly cost data.
+ * It includes a form to input the month and year, a table to display the costs,
+ * and a pie chart to visualize the costs by category.
+ */
 function Report() {
     const [monthYear, setMonthYear] = useState('');
     const [costs, setCosts] = useState([]);
@@ -25,6 +30,11 @@ function Report() {
     const [year, setYear] = useState('');
     const [reportFetched, setReportFetched] = useState(false);
 
+    /**
+     * Report component that fetches and displays monthly cost data.
+     * It includes a form to input the month and year, a table to display the costs,
+     * and a pie chart to visualize the costs by category.
+     */
     const handleFetchCosts = async () => {
         if (monthYear) {
             const [year, month] = monthYear.split('-');
@@ -101,7 +111,6 @@ function Report() {
                     No costs found for {month.padStart(2, '0')}/{year}
                 </Typography>
             )}
-
 
 
             {costs.length > 0 && (
