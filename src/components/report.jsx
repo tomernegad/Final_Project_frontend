@@ -18,6 +18,13 @@ import {
     TableFooter
 } from '@mui/material';
 
+/**
+ * Report component that displays a monthly report of costs by category.
+ * It includes a form to select the month and year, a table to display the report,
+ * and a pie chart to visualize the data.
+ *
+ * @component
+ */
 function Report() {
 
     const initReport = {};
@@ -43,7 +50,7 @@ function Report() {
                 parseInt(year)
             );
 
-            const report = {...initReport};
+            const report = {...initReport}; // Copy initial empty report
             let count = 0;
             let sum = 0.0;
 
@@ -54,6 +61,7 @@ function Report() {
                     rep['count']++;
                     rep['total'] += parseFloat(cost.sum);
                     rep['instances'].push(cost);
+
                     count++;
                     sum += parseFloat(cost.sum);
                 }
@@ -164,7 +172,7 @@ function Report() {
                         </TableFooter>
                     </Table>
                 </TableContainer>
-                {totalCount > 0 && (
+                {totalCount > 0 && ( // Only show chart if there are costs
                     <Box sx={{flex: 1}}>
                         <Pie data={chartData} options={{plugins: {legend: {position: 'bottom'}}}}/>
                     </Box>
