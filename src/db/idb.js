@@ -22,8 +22,12 @@ function openDB() {
 
 /**
  * Adds a new cost item to the 'costs' store.
- * @param {Object} costData
- * @returns {Promise<number>}
+ * @param {Object} costData - The cost data to be added.
+ * @param {number} costData.sum - The sum of the cost.
+ * @param {string} costData.category - The category of the cost.
+ * @param {string} costData.description - The description of the cost.
+ * @param {string} costData.date - The date of the cost.
+ * @returns {Promise<number>} A promise that resolves to the ID of the added cost item.
  */
 export function addCost(costData) {
     return new Promise(async (resolve, reject) => {
@@ -45,6 +49,10 @@ export function addCost(costData) {
     });
 }
 
+/**
+ * Retrieves all unique categories from the 'costs' store.
+ * @returns {Promise<Array<string>>} A promise that resolves to an array of unique categories.
+ */
 export function getCategories() {
     return new Promise(async (resolve, reject) => {
         try {
@@ -70,6 +78,11 @@ export function getCategories() {
     });
 }
 
+/**
+ * Deletes a cost item from the 'costs' store by ID.
+ * @param {number} id - The ID of the cost item to be deleted.
+ * @returns {Promise<void>} A promise that resolves when the cost item is deleted.
+ */
 export function deleteCost(id) {
     return new Promise(async (resolve, reject) => {
         try {
@@ -87,9 +100,9 @@ export function deleteCost(id) {
 
 /**
  * Retrieves all costs for a specific month and year.
- * @param {number} month
- * @param {number} year
- * @returns {Promise<Array>}
+ * @param {number} month - The month for which to retrieve costs (1-12).
+ * @param {number} year - The year for which to retrieve costs.
+ * @returns {Promise<Array<Object>>} A promise that resolves to an array of cost items for the specified month and year.
  */
 export function getCostsByMonthYear(month, year) {
     return new Promise(async (resolve, reject) => {
