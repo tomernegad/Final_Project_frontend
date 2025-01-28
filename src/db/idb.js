@@ -50,26 +50,6 @@ export function addCost(costData) {
 }
 
 /**
- * Deletes a cost item from the 'costs' store by ID.
- * @param {number} id - The ID of the cost item to be deleted.
- * @returns {Promise<void>} A promise that resolves when the cost item is deleted.
- */
-export function deleteCost(id) {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const db = await openDB();
-            const tx = db.transaction('costs', 'readwrite');
-            const store = tx.objectStore('costs');
-            const request = store.delete(id);
-            request.onsuccess = () => resolve(request.result);
-            request.onerror = () => reject(request.error);
-        } catch (error) {
-            reject(error);
-        }
-    });
-}
-
-/**
  * Retrieves all costs for a specific month and year.
  * @param {number} month - The month for which to retrieve costs (1-12).
  * @param {number} year - The year for which to retrieve costs.
