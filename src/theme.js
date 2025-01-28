@@ -1,9 +1,8 @@
-import {createTheme, Theme} from '@mui/material/styles';
+import {createTheme} from '@mui/material/styles';
 
 /**
  * Light theme configuration for the application.
  *
- * @type {Theme}
  */
 const lightTheme = createTheme({
     palette: {
