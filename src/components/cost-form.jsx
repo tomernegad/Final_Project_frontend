@@ -24,7 +24,7 @@ import {
  */
 function CostForm() {
     // State variables for form inputs and alert
-    const [sum, setSum] = useState('');
+    const [sum, setSum] = useState(0);
     const [category, setCategory] = useState('');
     const [description, setDescription] = useState('');
     const [date, setDate] = useState('');
@@ -35,7 +35,7 @@ function CostForm() {
         event.preventDefault();
         await addCost({sum, category, description, date});
         // Reset form fields
-        setSum('');
+        setSum(0);
         setCategory('');
         setDescription('');
         setDate('');
