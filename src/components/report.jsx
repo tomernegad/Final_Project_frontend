@@ -139,7 +139,8 @@ function Report() {
                                     {/* Only show instances if there are any */}
                                     {categoryReport[category]['instances'].length > 0 && <TableRow>
                                         <TableCell colSpan={3}>
-                                            <Table size="small"> {/* Nested table for instances */}
+                                            {/*Nested table for instances*/}
+                                            <Table size="small">
                                                 <TableHead>
                                                     <TableRow>
                                                         <TableCell>Description</TableCell>
