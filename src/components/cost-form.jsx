@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { addCost } from '../db/idb';
+import React, {useState} from 'react';
+import {addCost} from '../db/idb';
 import {categories} from '../db/cat';
 import {
     TextField,
@@ -33,7 +33,7 @@ function CostForm() {
     // Handle form submission
     const handleSubmit = async (event) => {
         event.preventDefault();
-        await addCost({ sum, category, description, date });
+        await addCost({sum, category, description, date});
         // Reset form fields
         setSum('');
         setCategory('');
@@ -43,8 +43,8 @@ function CostForm() {
     };
 
     return (
-        <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
-            <Typography variant="h5" gutterBottom align="center" sx={{ mb: 4 }}>
+        <Paper elevation={3} sx={{p: 4, borderRadius: 2}}>
+            <Typography variant="h5" gutterBottom align="center" sx={{mb: 4}}>
                 Add New Cost
             </Typography>
 
@@ -71,7 +71,7 @@ function CostForm() {
                 <FormControl fullWidth>
                     <InputLabel>Category</InputLabel>
                     <Select
-                        label='category'
+                        label="category"
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
                         required
@@ -110,7 +110,7 @@ function CostForm() {
                     variant="contained"
                     color="primary"
                     size="large"
-                    sx={{ mt: 2 }}
+                    sx={{mt: 2}}
                 >
                     Add Cost
                 </Button>
@@ -122,7 +122,7 @@ function CostForm() {
                 autoHideDuration={6000}
                 onClose={() => setOpenAlert(false)}
             >
-                <Alert severity="success" sx={{ width: '100%' }}>
+                <Alert severity="success" sx={{width: '100%'}}>
                     Cost added successfully!
                 </Alert>
             </Snackbar>

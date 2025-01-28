@@ -57,7 +57,7 @@ function Report() {
 
             fetchedCosts.forEach((cost) => {
                 if (categories.includes(cost.category)) {
-                    const rep = report[cost.category]
+                    const rep = report[cost.category];
                     rep['count']++;
                     rep['total'] += parseFloat(cost.sum);
                     rep['instances'].push(cost);
@@ -153,7 +153,9 @@ function Report() {
                                                         <TableRow key={cost.id}>
                                                             <TableCell>{cost.description}</TableCell>
                                                             <TableCell>{cost.sum}</TableCell>
-                                                            <TableCell>{cost.date.substring(cost.date.length - 2)}</TableCell>
+                                                            <TableCell>
+                                                                {cost.date.substring(cost.date.length - 2)}
+                                                            </TableCell>
                                                         </TableRow>
                                                     ))}
                                                 </TableBody>
