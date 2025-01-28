@@ -108,7 +108,7 @@ function Report() {
                     fullWidth
                     slotProps={{inputLabel: {shrink: true}}}
                 />
-                <Button
+                <Button // Button to generate a report
                     variant="contained"
                     color="primary"
                     onClick={handleFetchCosts}
