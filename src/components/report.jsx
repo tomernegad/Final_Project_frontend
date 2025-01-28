@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {getCostsByMonthYear} from '../db/idb';
 import {Pie} from 'react-chartjs-2';
 import {categories} from '../db/cat';
-import {Chart as ChartJS} from 'chart.js/auto';
+import {Chart as ChartJS} from 'chart.js/auto'; // Necessary for react-chartjs-2 to work
 import {
     TextField,
     Button,
@@ -27,6 +27,7 @@ import {
  */
 function Report() {
 
+    // Default report object with empty values
     const initReport = {};
     categories.forEach((category) => {
         initReport[category] = {
@@ -35,6 +36,7 @@ function Report() {
             instances: [],
         };
     });
+
 
     const [monthYear, setMonthYear] = useState('');
     const [categoryReport, setCategoryReport] = useState(initReport);
@@ -54,7 +56,6 @@ function Report() {
             let count = 0;
             let sum = 0.0;
 
-
             fetchedCosts.forEach((cost) => {
                 if (categories.includes(cost.category)) {
                     const rep = report[cost.category];
@@ -70,7 +71,6 @@ function Report() {
             setCategoryReport(report);
             setTotalCount(count);
             setTotalSum(sum);
-
 
             setChartData({
                 labels: categories,
@@ -91,7 +91,6 @@ function Report() {
         }
     };
 
-
     return (
         <Paper elevation={3} sx={{p: 4, borderRadius: 2}}>
             <Typography variant="h5" gutterBottom align="center" sx={{mb: 4}}>
@@ -99,7 +98,7 @@ function Report() {
             </Typography>
 
             <Box sx={{mb: 4, display: 'flex', gap: 2}}>
-                <TextField
+                <TextField // Input field for month and year
                     label="Month"
                     type="month"
                     value={monthYear}
@@ -120,7 +119,7 @@ function Report() {
 
             <Box sx={{display: 'flex', gap: 4}}>
                 <TableContainer component={Paper} sx={{flex: 1}}>
-                    <Table>
+                    <Table> {/* Table for the category report */}
                         <TableHead>
                             <TableRow>
                                 <TableCell>Category</TableCell>
@@ -137,10 +136,10 @@ function Report() {
                                         <TableCell>{categoryReport[category]['count']}</TableCell>
                                         <TableCell>{categoryReport[category]['total']}</TableCell>
                                     </TableRow>
-
+                                    {/* Only show instances if there are any */}
                                     {categoryReport[category]['instances'].length > 0 && <TableRow>
                                         <TableCell colSpan={3}>
-                                            <Table size="small">
+                                            <Table size="small"> {/* Nested table for instances */}
                                                 <TableHead>
                                                     <TableRow>
                                                         <TableCell>Description</TableCell>
@@ -154,7 +153,8 @@ function Report() {
                                                             <TableCell>{cost.description}</TableCell>
                                                             <TableCell>{cost.sum}</TableCell>
                                                             <TableCell>
-                                                                {cost.date.substring(cost.date.length - 2)}
+                                                                {// Extract the day from the date string
+                                                                    cost.date.substring(cost.date.length - 2)}
                                                             </TableCell>
                                                         </TableRow>
                                                     ))}
