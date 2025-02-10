@@ -100,7 +100,7 @@ function Report() {
             <Box sx={{mb: 4, display: 'flex', gap: 2}}>
                 <TextField // Input field for month and year
                     label='Month'
-                    type='month' 
+                    type='month' // Selector available only on chromium based browsers
                     value={monthYear}
                     onChange={(e) => setMonthYear(e.target.value)}
                     variant='outlined'
