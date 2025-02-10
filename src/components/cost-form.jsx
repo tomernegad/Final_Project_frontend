@@ -44,12 +44,12 @@ function CostForm() {
 
     return (
         <Paper elevation={3} sx={{p: 4, borderRadius: 2}}>
-            <Typography variant="h5" gutterBottom align="center" sx={{mb: 4}}>
+            <Typography variant='h5' gutterBottom align='center' sx={{mb: 4}}>
                 Add New Cost
             </Typography>
 
             <Box
-                component="form"
+                component='form'
                 onSubmit={handleSubmit}
                 sx={{
                     display: 'flex',
@@ -59,23 +59,23 @@ function CostForm() {
             >
                 {/* Input field for sum */}
                 <TextField
-                    label="Sum"
-                    type="number"
+                    label='Sum'
+                    type='number'
                     value={sum}
                     onChange={(e) => setSum(e.target.value)}
                     required
-                    variant="outlined"
+                    variant='outlined'
                 />
 
                 {/* Dropdown menu for category selection */}
                 <FormControl fullWidth>
                     <InputLabel>Category</InputLabel>
                     <Select
-                        label="category"
+                        label='category'
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
                         required
-                        variant="outlined">
+                        variant='outlined'>
                         {categories.map((category) => (
                             <MenuItem key={category} value={category}>
                                 {category}
@@ -86,30 +86,30 @@ function CostForm() {
 
                 {/* Input field for description */}
                 <TextField
-                    label="Description"
+                    label='Description'
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     required
-                    variant="outlined"
+                    variant='outlined'
                     multiline
                     rows={2}
                 />
 
                 {/* Input field for date */}
                 <TextField
-                    type="date"
+                    type='date'
                     value={date}
                     onChange={(e) => setDate(e.target.value)}
                     required
-                    variant="outlined"
+                    variant='outlined'
                 />
 
                 {/* Submit button */}
                 <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    size="large"
+                    type='submit'
+                    variant='contained'
+                    color='primary'
+                    size='large'
                     sx={{mt: 2}}
                 >
                     Add Cost
@@ -122,7 +122,7 @@ function CostForm() {
                 autoHideDuration={6000}
                 onClose={() => setOpenAlert(false)}
             >
-                <Alert severity="success" sx={{width: '100%'}}>
+                <Alert severity='success' sx={{width: '100%'}}>
                     Cost added successfully!
                 </Alert>
             </Snackbar>

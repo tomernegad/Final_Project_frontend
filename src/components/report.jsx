@@ -93,24 +93,24 @@ function Report() {
 
     return (
         <Paper elevation={3} sx={{p: 4, borderRadius: 2}}>
-            <Typography variant="h5" gutterBottom align="center" sx={{mb: 4}}>
+            <Typography variant='h5' gutterBottom align='center' sx={{mb: 4}}>
                 Monthly Report
             </Typography>
 
             <Box sx={{mb: 4, display: 'flex', gap: 2}}>
                 <TextField // Input field for month and year
-                    label="Month"
-                    type="month"
+                    label='Month'
+                    type='month' 
                     value={monthYear}
                     onChange={(e) => setMonthYear(e.target.value)}
-                    variant="outlined"
+                    variant='outlined'
                     placeholder={'YYYY-MM'}
                     fullWidth
                     slotProps={{inputLabel: {shrink: true}}}
                 />
                 <Button // Button to generate a report
-                    variant="contained"
-                    color="primary"
+                    variant='contained'
+                    color='primary'
                     onClick={handleFetchCosts}
                 >
                     Get Report
@@ -140,7 +140,7 @@ function Report() {
                                     {categoryReport[category]['instances'].length > 0 && <TableRow>
                                         <TableCell colSpan={3}>
                                             {/*Nested table for instances*/}
-                                            <Table size="small">
+                                            <Table size='small'>
                                                 <TableHead>
                                                     <TableRow>
                                                         <TableCell>Description</TableCell>
